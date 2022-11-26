@@ -4,6 +4,8 @@
 var currentDay = $("#currentDay");
 var timeBlockContainer = $("#time-blocks-container");
 var dayjsObject = dayjs();
+var textarea = $("textarea")
+var btn = $("button")
 var formattedDate = dayjsObject.format("dddd, MMMM DD, YYYY");
 var currentTime =  parseInt(dayjsObject.format("HH" ));
 var hour9 = $("#hour-9");
@@ -34,6 +36,7 @@ var hour3Value = hour3. value = 15;
 var hour4Value = hour4.value = 16;
 var hour5Value = hour5.value = 17;
 console.log(currentTime)
+
 
 function timeBlock1Color(){
    hour9.html("9")
@@ -134,7 +137,11 @@ function timeBlock9Color(){
       
 };
 
+function saveText(){
+localStorage.setItem = JSON.stringify(textarea.textContent)
+}
 $(function() {
+
     currentDay.html(formattedDate)
     timeBlock1Color()
     timeBlock2Color()
@@ -145,8 +152,7 @@ $(function() {
     timeBlock7Color()
     timeBlock8Color()
     timeBlock9Color()
-    
-    
+    btn.on('click', saveText)
     
 });
   
