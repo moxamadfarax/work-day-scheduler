@@ -1,10 +1,15 @@
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
 var currentDay = $("#currentDay");
 var timeBlockContainer = $("#time-blocks-container");
 var dayjsObject = dayjs();
-var textarea = $("textarea")
+var textarea1 = $("#text-area-1")
+var textarea2 = $("#text-area-2")
+var textarea3 = $("#text-area-3")
+var textarea4 = $("#text-area-4")
+var textarea5 = $("#text-area-5")
+var textarea6 = $("#text-area-6")
+var textarea7 = $("#text-area-7")
+var textarea8 = $("#text-area-8")
+var textarea9 = $("#text-area-9")
 var btn = $("button")
 var formattedDate = dayjsObject.format("dddd, MMMM DD, YYYY");
 var currentTime =  parseInt(dayjsObject.format("HH" ));
@@ -35,8 +40,6 @@ var hour2Value = hour2. value = 14;
 var hour3Value = hour3. value = 15;
 var hour4Value = hour4.value = 16;
 var hour5Value = hour5.value = 17;
-console.log(currentTime)
-
 
 function timeBlock1Color(){
    hour9.html("9")
@@ -46,7 +49,6 @@ function timeBlock1Color(){
     timeBlock1.addClass("future");
   else if(currentTime > hour9Value )
     timeBlock1.addClass("past");
-    
 };
 
 function timeBlock2Color(){
@@ -57,7 +59,6 @@ function timeBlock2Color(){
       timeBlock2.addClass("future");
     else if(currentTime > hour10Value )
       timeBlock2.addClass("past");
-      
 };
 
 function timeBlock3Color(){
@@ -68,7 +69,6 @@ function timeBlock3Color(){
       timeBlock3.addClass("future");
     else if(currentTime > hour11Value )
       timeBlock3.addClass("past");
-      
 };
 
 function timeBlock4Color(){
@@ -79,7 +79,6 @@ function timeBlock4Color(){
       timeBlock4.addClass("future");
     else if(currentTime > hour12Value )
       timeBlock4.addClass("past");
-      
 };
 
 function timeBlock5Color(){
@@ -90,7 +89,6 @@ function timeBlock5Color(){
       timeBlock5.addClass("future");
     else if(currentTime > hour1Value )
       timeBlock5.addClass("past");
-      
 };
 
 function timeBlock6Color(){
@@ -101,7 +99,6 @@ function timeBlock6Color(){
       timeBlock6.addClass("future");
     else if(currentTime > hour2Value )
       timeBlock6.addClass("past");
-      
 };
 
 function timeBlock7Color(){
@@ -112,7 +109,6 @@ function timeBlock7Color(){
       timeBlock7.addClass("future");
     else if(currentTime > hour3Value )
       timeBlock7.addClass("past");
-      
 };
 
 function timeBlock8Color(){
@@ -123,7 +119,6 @@ function timeBlock8Color(){
       timeBlock8.addClass("future");
     else if(currentTime > hour4Value )
       timeBlock8.addClass("past");
-      
 };
 
 function timeBlock9Color(){
@@ -134,14 +129,40 @@ function timeBlock9Color(){
       timeBlock9.addClass("future");
     else if(currentTime > hour5Value )
       timeBlock9.addClass("past");
-      
 };
 
-function saveText(){
-localStorage.setItem = JSON.stringify(textarea.textContent)
+function saveData(){
+    var textareaValue = {
+        text1: textarea1.val(),
+        text2: textarea2.val(),
+        text3: textarea3.val(),
+        text4: textarea4.val(),
+        text5: textarea5.val(),
+        text6: textarea6.val(),
+        text7: textarea7.val(),
+        text8: textarea8.val(),
+        text9: textarea9.val(),
+    };
+    localStorage.setItem("list-item", JSON.stringify(textareaValue))
 }
-$(function() {
+function renderData(){
+    var listitem = JSON.parse(localStorage.getItem("list-item"))
+if (listitem !== null){
+    textarea1.html(listitem.text1);
+    textarea2.html(listitem.text2);
+    textarea3.html(listitem.text3);
+    textarea4.html(listitem.text4);
+    textarea5.html(listitem.text5);
+    textarea6.html(listitem.text6);
+    textarea7.html(listitem.text7);
+    textarea8.html(listitem.text8);
+    textarea9.html(listitem.text9);
+}
+else{
+    return;
+}}
 
+$(function() {
     currentDay.html(formattedDate)
     timeBlock1Color()
     timeBlock2Color()
@@ -152,7 +173,10 @@ $(function() {
     timeBlock7Color()
     timeBlock8Color()
     timeBlock9Color()
-    btn.on('click', saveText)
-    
+    btn.on('click', function(event){
+        event.preventDefault();
+        saveData()
+        renderData()
 });
-  
+});
+$(document).ready(renderData());
